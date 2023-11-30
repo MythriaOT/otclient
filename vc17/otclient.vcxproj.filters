@@ -186,9 +186,6 @@
     <ClCompile Include="..\src\framework\graphics\framebuffer.cpp">
       <Filter>Source Files\framework\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\framework\graphics\framebuffermanager.cpp">
-      <Filter>Source Files\framework\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\framework\graphics\graphics.cpp">
       <Filter>Source Files\framework\graphics</Filter>
     </ClCompile>
@@ -555,6 +552,9 @@
     <ClCompile Include="..\src\client\luavaluecasts_client.cpp">
       <Filter>Source Files\client</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\framework\net\httplogin.cpp">
+      <Filter>Source Files\framework\net</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\framework\config.h">
@@ -645,9 +645,6 @@
       <Filter>Header Files\framework\graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\framework\graphics\framebuffer.h">
-      <Filter>Header Files\framework\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\framework\graphics\framebuffermanager.h">
       <Filter>Header Files\framework\graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\framework\graphics\glutil.h">
@@ -1075,6 +1072,9 @@
     </ClInclude>
     <ClInclude Include="..\src\client\luavaluecasts_client.h">
       <Filter>Header Files\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\framework\net\httplogin.h">
+      <Filter>Header Files\framework\net</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
