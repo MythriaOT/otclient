@@ -86,7 +86,7 @@ void Tile::draw(const Point& dest, const MapPosInfo& mapRect, int flags, bool is
     for (const auto& thing : m_things) {
         thing->drawWidgets(mapRect);
     }
-
+    
     drawWidgets(mapRect);
 }
 
@@ -143,8 +143,7 @@ void Tile::clean()
 #endif
         ) {
         g_dispatcher.scheduleEvent([tile = static_self_cast<Tile>()] {
-            if (g_ui.getMapWidget())
-                g_ui.getMapWidget()->getMapView()->removeForegroundTile(tile);
+            g_ui.getMapWidget()->getMapView()->removeForegroundTile(tile);
         }, g_game.getServerBeat());
     }
 
@@ -836,8 +835,7 @@ void Tile::setText(const std::string& text, Color color)
     if (!m_text) {
         m_text = std::make_shared<StaticText>();
         g_dispatcher.scheduleEvent([tile = static_self_cast<Tile>()] {
-            if (g_ui.getMapWidget())
-                g_ui.getMapWidget()->getMapView()->addForegroundTile(tile);
+            g_ui.getMapWidget()->getMapView()->addForegroundTile(tile);
         }, g_game.getServerBeat());
     }
 
@@ -860,8 +858,7 @@ void Tile::setTimer(int time, Color color)
     if (!m_timerText) {
         m_timerText = std::make_shared<StaticText>();
         g_dispatcher.scheduleEvent([tile = static_self_cast<Tile>()] {
-            if (g_ui.getMapWidget())
-                g_ui.getMapWidget()->getMapView()->addForegroundTile(tile);
+            g_ui.getMapWidget()->getMapView()->addForegroundTile(tile);
         }, g_game.getServerBeat());
     }
 
