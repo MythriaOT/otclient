@@ -40,6 +40,7 @@ enum class DrawPoolType : uint8_t
     LIGHT,
     FOREGROUND_MAP,
     FOREGROUND,
+    FOREGROUND_MAP_WIDGETS,
     LAST
 };
 
@@ -184,7 +185,7 @@ private:
              const CoordsBufferPtr& coordsBuffer = nullptr);
 
     void addAction(const std::function<void()>& action);
-    void bindFrameBuffer(const Size& size);
+    void bindFrameBuffer(const Size& size, const Color& color = Color::white);
     void releaseFrameBuffer(const Rect& dest);
 
     inline void setFPS(uint16_t fps) { m_refreshDelay = fps; }
@@ -215,6 +216,28 @@ private:
     void rotate(float angle);
     void rotate(float x, float y, float angle);
     void rotate(const Point& p, float angle) { rotate(p.x, p.y, angle); }
+
+    template<typename T>
+    void setParameter(std::string_view name, T&& value) {
+        m_parameters.emplace(name, value);
+    }
+    template<typename T>
+    T getParameter(std::string_view name) {
+        auto it = m_parameters.find(name);
+        if (it != m_parameters.end()) {
+            return std::any_cast<T>(it->second);
+        }
+
+        return T();
+    }
+    bool containsParameter(std::string_view name) {
+        return m_parameters.contains(name);
+    }
+    void removeParameter(std::string_view name) {
+        const auto& it = m_parameters.find(name);
+        if (it != m_parameters.end())
+            m_parameters.erase(it);
+    }
 
     void flush()
     {
@@ -269,6 +292,7 @@ private:
     std::vector<DrawObject> m_objectsDraw;
 
     stdext::map<size_t, CoordsBuffer*> m_coords;
+    stdext::map<std::string_view, std::any> m_parameters;
 
     float m_scaleFactor{ 1.f };
     float m_scale{ PlatformWindow::DEFAULT_DISPLAY_DENSITY };

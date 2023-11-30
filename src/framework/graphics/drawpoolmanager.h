@@ -54,7 +54,7 @@ public:
     void addBoundingRect(const Rect& dest, const Color& color = Color::white, uint16_t innerLineWidth = 1) const;
     void addAction(const std::function<void()>& action) const { getCurrentPool()->addAction(action); }
 
-    void bindFrameBuffer(const Size& size) const { getCurrentPool()->bindFrameBuffer(size); }
+    void bindFrameBuffer(const Size& size, const Color& color = Color::white) const { getCurrentPool()->bindFrameBuffer(size, color); }
     void releaseFrameBuffer(const Rect& dest) const { getCurrentPool()->releaseFrameBuffer(dest); };
 
     void setOpacity(const float opacity, bool onlyOnce = false) const { getCurrentPool()->setOpacity(opacity, onlyOnce); }
@@ -89,6 +89,14 @@ public:
     inline bool isScaled() const { return getCurrentPool()->isScaled(); }
     inline uint16_t getScaledSpriteSize() const { return m_spriteSize * getScaleFactor(); }
 
+    template<typename T>
+    void setParameter(std::string_view name, T&& value) { getCurrentPool()->setParameter(name, value); }
+    void removeParameter(std::string_view name) { getCurrentPool()->removeParameter(name); }
+
+    template<typename T>
+    T getParameter(std::string_view name) { return getCurrentPool()->getParameter<T>(name); }
+    bool containsParameter(std::string_view name) { return getCurrentPool()->containsParameter(name); }
+
     void flush() const { if (getCurrentPool()) getCurrentPool()->flush(); }
 
     DrawPoolType getCurrentType() const { return getCurrentPool()->m_type; }
@@ -101,7 +109,8 @@ private:
     void terminate() const;
     void drawObject(const DrawPool::DrawObject& obj);
 
-    void drawPool(DrawPool* pool);
+    bool drawPool(const DrawPoolType type);
+    bool drawPool(DrawPool* pool);
 
     CoordsBuffer m_coordsBuffer;
     std::array<DrawPool*, static_cast<uint8_t>(DrawPoolType::LAST)> m_pools{};

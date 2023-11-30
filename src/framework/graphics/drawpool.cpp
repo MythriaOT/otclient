@@ -38,7 +38,7 @@ DrawPool* DrawPool::create(const DrawPoolType type)
             pool->m_temporaryFramebuffers.emplace_back(std::make_shared<FrameBuffer>());
         }
     } else {
-        pool->m_alwaysGroupDrawings = true; // CREATURE_INFORMATION & TEXT
+        pool->m_alwaysGroupDrawings = type != DrawPoolType::FOREGROUND_MAP_WIDGETS; // CREATURE_INFORMATION & TEXT
 
         if (type == DrawPoolType::FOREGROUND_MAP) {
             pool->setFPS(FPS60);
@@ -247,6 +247,7 @@ void DrawPool::resetState()
         objs.clear();
     m_objectsFlushed.clear();
     m_coords.clear();
+    m_parameters.clear();
 
     m_state = {};
     m_status.second = 0;
@@ -368,10 +369,13 @@ void DrawPool::addAction(const std::function<void()>& action)
     m_objects[order].emplace_back(action);
 }
 
-void DrawPool::bindFrameBuffer(const Size& size)
+void DrawPool::bindFrameBuffer(const Size& size, const Color& color)
 {
     ++m_bindedFramebuffers;
     ++m_lastFramebufferId;
+
+    if (color != Color::white)
+        m_state.color = color;
 
     m_oldState = std::move(m_state);
     m_state = {};
