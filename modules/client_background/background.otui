@@ -18,7 +18,7 @@ Panel
     text-auto-resize: true
     margin-top: 50
     color: #e98d02
-    text: OTCLient Redemption
+    text: Mythria
     font: verdana-11px-rounded
     font-scale: 4
     shader: Map - Party
