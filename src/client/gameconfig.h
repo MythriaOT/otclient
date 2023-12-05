@@ -80,7 +80,7 @@ private:
     uint16_t m_lastSupportedVersion{ 1321 };
 
     // Map
-    Size m_mapViewPort{ 8,6 };
+    Size m_mapViewPort{ 32,18 };
     uint8_t m_mapMaxZ{ 15 };
     uint8_t m_mapSeaFloor{ 7 };
     uint8_t m_mapUndergroundFloorRange{ 2 };

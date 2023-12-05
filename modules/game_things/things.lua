@@ -74,4 +74,5 @@ function load(version)
             onClientVersionChange = load
         })
     end
+    g_things.loadOtml('things.otml')
 end
