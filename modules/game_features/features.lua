@@ -48,6 +48,11 @@ controller:registerEvents(g_game, {
         end
 
         if version >= 860 then
+            g_game.enableFeature(GameSpritesU32); -- Enable extended sprites
+            g_game.enableFeature(GameMagicEffectU16); -- Enable increased effects
+            g_game.enableFeature(GameDistanceEffectU16);
+            g_game.enableFeature(GameExtendedOpcode);
+            g_game.enableFeature(GameChangeMapAwareRange);
             g_game.enableFeature(GameAttackSeq);
         end
 
